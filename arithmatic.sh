@@ -1,60 +1,21 @@
-#! /bin/bash 
+#!/bin/bash -x
 
-read -p "Enter a:" a
-read -p "Enter b:" b
-read -p "Enter c:" c
+echo "enter three inputs"
+read a b c 
+result1=$(($a+$b*$c))
+  echo $result1
+result2=$(($a*$b+$c))
+  echo $result2
+result3=$(($c+$a/$b))
+  echo $result3
+result4=$(($a%$b+$c))
+  echo $result4
 
-declare -A expressionResultDict
+declare -A dictionary
 
-function computeExpressions() {
-    expression=$1
-    a=$2
-    b=$3
-    c=$4
-    case $expression in 
-        1)
-        result=$(($a + $b * $c ))
-        ;;
-        2)
-        result=$(($a * $b + $c ))
-        ;;
-        3)
-        result=$(($c + $a / $b ))
-        ;;
-        4)
-        result=$(($a % $b + $c ))
-        ;;
-    esac
-    
-    echo $result
+dictionary[uc2]="$result1"
+dictionary[uc3]="$result2"
+dictionary[uc4]="$result3"
+dictionary[uc5]="$result4"
 
-}
-function expressionPerform() {
-    expression=$1
-   
-    case $expression in 
-        1)
-        exp="a+b*c"
-        ;;
-        2)
-        exp="a*b+c"
-        ;;
-        3)
-        exp="c+a/b"
-        ;;
-        4)
-        exp="a%b+c"
-        ;;
-    esac
-    
-    echo $exp
-}
-for (( counter=1;counter<=4;counter++ ))
-do
-    expressionResult=$( computeExpressions $counter $a $b $c )
-    expressionForm=$( expressionPerform $counter )
-    expressionResultDict[$expressionForm]=$expressionResult
-done
-
-echo "The computation expressions are ${!expressionResultDict[@]}"
-echo "The computation expressions result are ${expressionResultDict[@]}"
+echo "${dictionary[@]}"
